@@ -1,0 +1,30 @@
+@import '../../styles/_variables'
+
+.single
+    width: 500px
+    height: 100px
+    display: flex
+    justify-content: space-between
+    align-items: center
+    border: 1px solid $off-black
+    padding: 0 2rem
+    &__avatar
+        width: 60px
+        height: 60px
+        border-radius: 50%
+        object-fit: cover
+    &__title
+        font-size: 1.2rem
+    &__btn
+        padding: .5rem 1rem
+        border: 1px solid $off-black
+        border-radius: 5px
+        cursor: pointer
+        transition: all .2s ease-in-out
+        &:hover
+            transform: scale(1.02)
+            color: $off-white
+            background-color: $accent
+            border: 1px solid $accent
+        &:active
+            transform: scale(.9)
