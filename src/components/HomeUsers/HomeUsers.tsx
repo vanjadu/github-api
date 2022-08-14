@@ -13,18 +13,28 @@ const HomeUsers = (): JSX.Element => {
 
   const fetchUsers = async () => {
     setLoading(true)
-    try {
-      const res = await axios.get(
-        `http://api.github.com/search/users?q=${search}&per_page=6`
-      )
 
-      const data = await res.data.items
-      setUsers(data)
+    if (!search) {
       setLoading(false)
-    } catch (error: any) {
-      console.log(error.message)
-      toast.error('Something went wrong')
-      setLoading(false)
+      return toast.info('Please enter a username')
+    }
+
+    if (search) {
+      try {
+        const res = await axios.get(
+          `http://api.github.com/search/users?q=${search}&per_page=20`
+        )
+
+        const data = await res.data.items
+        setUsers(data)
+        setLoading(false)
+
+        toast.success('Users fetched successfully')
+      } catch (error: any) {
+        console.log(error.message)
+        toast.error('Something went wrong')
+        setLoading(false)
+      }
     }
   }
 
@@ -41,7 +51,9 @@ const HomeUsers = (): JSX.Element => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <FiSearch className='home-users__icon' onClick={fetchUsers} />
+        <button onClick={fetchUsers} className='home-users__btn'>
+          <FiSearch className='home-users__icon' />
+        </button>
       </div>
       {loading ? (
         <Loader />
